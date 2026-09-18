@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this lab in teaching or writing, please cite the software and record the commit used."
+type: software
+title: "LLM Reinforcement Learning Lab"
+abstract: "An interactive finite-action educational lab for PPO and GRPO advantages, clipped optimization, and policy evaluation."
+authors:
+  - family-names: Chen
+    given-names: Richard
+    affiliation: "Renmin University of China"
+    website: "https://richardchen99.github.io"
+repository-code: "https://github.com/richardchen99/llm-rl-lab"
+url: "https://richardchen99.github.io/llm-rl-lab/"
+keywords:
+  - reinforcement learning
+  - PPO
+  - GRPO
+  - interactive visualization

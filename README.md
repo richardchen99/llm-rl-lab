@@ -1,42 +1,71 @@
 # LLM Reinforcement Learning Lab
 
-An interactive research lab by **Richard Chen · 中国人民大学 / Renmin University of China**.
+**Trace how reward changes a response distribution.**
 
-[Live lab](https://richardchen99.github.io/llm-rl-lab/) · [Personal research](https://richardchen99.github.io)
+An executable, finite-action view of language-model reinforcement learning: sample responses, assign rewards, compute advantages, optimize a clipped objective, and inspect the updated policy. Every probability and gradient in the small experiment can be checked.
 
-用一个能算清楚的策略说明 LLM RL：采样回答 → 获得奖励 → 计算优势 → clipped objective 与 KL → 改变回答概率 → 检查结果。
+[**Open the lab ↗**](https://richardchen99.github.io/llm-rl-lab/) · [Research note · 中文](https://richardchen99.github.io/blog/llm-rl-lab-note/) · [中文 README](README.zh-CN.md) · [Quick start](#quick-start)
 
-## Experiments
+Created by **Richard Chen · Renmin University of China / 中国人民大学** · [Homepage](https://richardchen99.github.io)
 
-- **Training chain**：串联预训练、SFT、rollout、reward、policy update 和 evaluation。
-- **Live training trace**：可复现的随机采样、重复回答、逐阶段显示的奖励 / 优势和完整 6 次策略更新。
-- **PPO / GRPO comparison**：切换 value baseline 与组内相对优势，观察同一采样组如何产生不同学习信号。
-- **Optimizer controls**：调整 group size、clip epsilon、KL 系数和学习率，重放实验。
-- **Clipping explorer**：手动改变概率比与优势正负，观察 clipping 截断哪一侧的收益。
-- **Learning trajectory**：每次更新后显示新策略概率、参考策略 KL、完整候选空间的期望奖励。
+[![Reinforcement learning lab with rollout stages, rewards, advantages, and a six-update policy trajectory](docs/assets/overview.jpg)](https://richardchen99.github.io/llm-rl-lab/)
 
-## Examples
+*Real application capture: sampled responses connect to reward, advantage, policy movement, and exact finite-space evaluation.*
 
-| Example | Prompt | Reward |
+## The learning signal, made inspectable
+
+| Experiment | Intervention | What to inspect |
 | --- | --- | --- |
-| Math verifier | `Solve 3x + 2 = 11. Give x.` | 预定义四个候选回答，正确答案 1，错误答案 0 |
-| JSON verifier | `What is 17 + 25? Return only a JSON object with key "answer".` | 预定义候选中，仅合法 JSON 且 answer 为数值 42 得 1 |
-| Preference reward | 向初学者简短解释 KV Cache | 公开给定的准确性与清晰度示例分，不是训练过的 reward model |
+| **Seeded rollout** | Change the seed or resample the group | Repeated responses and finite-sample variation |
+| **PPO / GRPO** | Switch the advantage baseline | How the same rewards become different learning signals |
+| **Policy updates** | Adjust group size, learning rate, clipping, and KL | Six real logit updates and their probability trajectories |
+| **Clipping explorer** | Change the ratio and advantage sign | Which side of the surrogate objective is clipped |
+| **Evaluation** | Compare E0–E6 | Exact expected reward and KL over the four-response space |
 
-评分表对应有限候选回答，实验不调用 LLM，也没有任意文本评分器。
+The training overview places pretraining, SFT, rollout, reward, policy updates, and evaluation in context. The numerical experiment focuses on the policy-update loop. English controls are paired with Chinese explanations.
 
-## Try this
+## Experimental framework
 
-1. 选择 Math verifier 与 GRPO，逐步执行。先有采样，再有 reward 与 advantage，之后才更新策略。
-2. 到达 Evaluate 时，对比新旧回答概率和 E0–E6 的期望奖励轨迹。
-3. 保持 seed、group size 不变，切换 PPO，对比 baseline 的作用。
-4. 修改 KL 系数或学习率。所有影响训练的参数都会重置轨迹。
-5. 点击 Resample group，观察有限采样噪声。若组内奖励完全相同，GRPO 组内优势为零。
-6. 在 clipping explorer 中切换 Negative advantage，并将 ratio 降到下界以下。
+![Finite-action RL framework from seeded sampling through reward, advantage, clipped optimization, and policy evaluation](docs/assets/architecture.png)
+
+*Original schematic: the sampling policy and reference policy have distinct roles in one inspectable update loop. [Editable SVG](docs/assets/architecture.svg) · [Figure provenance](docs/assets/README.md).*
+
+## Reproduce a six-update run
+
+1. Choose **Math verifier** and **GRPO**, with seed **42**, group size **8**, clip epsilon **0.2**, KL coefficient **0.05**, and learning rate **0.6**.
+2. Step through sampling, reward, and advantage before continuing to policy updates.
+3. At **Evaluate**, inspect E0–E6. In this configuration, expected reward moves from approximately **0.378 to 0.466**, with final reference KL approximately **0.0212**.
+4. Keep the seed and group size fixed, then switch to PPO to inspect the baseline change.
+5. Resample the group or change a control to rebuild the trajectory. In the clipping explorer, try a negative advantage with a ratio below the lower bound.
+
+These values describe this finite experiment, not a language-model benchmark. All six updates reuse the same sampled group; expected reward is evaluated over all four candidate responses, not on a held-out set.
+
+<details>
+<summary><strong>Inspect the policy movement and optimizer</strong></summary>
+
+![Response probabilities and expected reward after six GRPO updates in the seeded math example](docs/assets/policy.jpg)
+
+*Probability mass moves among four complete candidate responses.*
+
+![Optimizer controls, clipping behavior, and the E0 to E6 learning trajectory](docs/assets/optimizer.jpg)
+
+*Clipping and KL influence the update; they do not guarantee monotonic reward improvement.*
+
+</details>
+
+## Reward tasks
+
+| Task | Prompt | Public reward rule |
+| --- | --- | --- |
+| **Math verifier** | `Solve 3x + 2 = 11. Give x.` | Correct predefined answers receive 1; incorrect ones receive 0 |
+| **JSON verifier** | `What is 17 + 25? Return only a JSON object with key "answer".` | Among the predefined candidates, valid JSON with numeric answer 42 receives 1 |
+| **Preference reward** | Explain KV Cache briefly to a beginner | Fixed illustrative scores for accuracy and clarity |
+
+Each task has four predefined responses and an explicit reward table. There is no arbitrary-text verifier, trained reward model, or live LLM call.
 
 ## Mathematical scope
 
-共享教学目标：
+The shared teaching objective is:
 
 $$
 J=\frac1G\sum_i\min\left(
@@ -49,45 +78,62 @@ $$
 \hat A_i^{\mathrm{GRPO}}=\frac{r_i-\bar r}{\sigma_r+10^{-8}}.
 $$
 
-这是 **四种完整回答上的单步 categorical softmax 策略**。采样、概率比、clipped surrogate、解析 KL、logit 梯度和参数更新均实际计算；reward 表公开给定。PPO 分支使用旧策略的精确期望奖励作单步 value baseline，GRPO 分支使用组内 population standard deviation。
+The policy is a **categorical softmax over four complete responses**. Sampling, probability ratios, the clipped surrogate, exact KL, analytic logit gradients, and parameter updates are actually computed.
 
-真实 LLM 的 PPO / GRPO 涉及 token 序列、不同长度归一化与 KL 估计方式；PPO 通常另训 critic，并使用 GAE。本实验不模拟 critic 训练、分布式 rollout、token 级 credit assignment 或完整模型训练，不能用作这些算法实现的性能比较。
+The PPO branch uses the exact old-policy expected reward as a one-step value baseline; it does not train a critic or use GAE. GRPO uses the group's population standard deviation. Equal group rewards produce zero reward advantage, although the KL term can still act when the current policy differs from the reference.
 
-期望奖励按全部四个候选精确计算，**不是独立测试集得分**。有限采样与裁剪不保证每步单调改进。RLHF / RLVR 指反馈来源，PPO / GRPO 指优化方法；DPO 的典型偏好优化流程不需要同样的在线 rollout。
+The old policy defines the sampling distribution and ratio denominator. The fixed reference defines the KL anchor, even when both start from identical probabilities. Clipping is advantage-direction-dependent and does not impose a hard bound on policy probabilities.
 
-## Run locally
+Token-level credit assignment, sequence-length normalization, distributed rollout, and full LLM training are outside scope. RLHF/RLVR describe feedback sources; PPO/GRPO describe optimization methods. The usual DPO workflow does not require the same online rollout loop.
 
-Use Node.js **24** (supported minimum: 22.12).
+## Quick start
+
+Use **Node.js 24**; the supported minimum is 22.12.
 
 ```bash
+git clone https://github.com/richardchen99/llm-rl-lab.git
+cd llm-rl-lab
 npm ci
 npm run dev -- --host 127.0.0.1
+```
+
+```bash
 npm test
 npm run build
 npm run preview -- --host 127.0.0.1
 ```
 
-## Implementation
+All experiment calculations run in the browser; no API key, model download, or GPU is required. Built with React 19, TypeScript, Vite, Framer Motion, and KaTeX.
 
-- `src/model.ts`：奖励任务、seeded sampling、baseline、clipped objective、KL、解析 logit 梯度与更新轨迹。
-- `src/App.tsx`：阶段播放、奖励 / 优势、概率动画、学习轨迹与 clipping 实验。
-- `src/shared.tsx` / `src/style.css`：Framer Motion、KaTeX、浅色玻璃 UI、键盘操作及 reduced-motion 支持。
-- `tests/model.test.mjs`：可复现采样、优势统计、finite-difference 梯度核对、概率归一化和 clipping 方向。
+## Implementation and verification
 
-计算完全在浏览器本地完成，无 API 密钥、模型下载或 GPU 要求。`npm test` 编译计算模型并运行 Node test runner；`npm run build` 进行类型检查与静态构建。
+| Entry point | Responsibility |
+| --- | --- |
+| [`src/model.ts`](src/model.ts) | Reward tasks, sampling, baselines, clipped objective, KL, analytic gradients, and updates |
+| [`src/App.tsx`](src/App.tsx) | Stage playback, probability movement, learning trajectory, and clipping explorer |
+| [`src/shared.tsx`](src/shared.tsx) · [`src/style.css`](src/style.css) | Formulas, animation, glass panels, and reduced-motion support |
+| [`tests/model.test.mjs`](tests/model.test.mjs) | Seed reproducibility, advantage statistics, finite-difference gradient checks, valid probabilities, and clipping direction |
 
-GitHub Actions 在 `main` 推送后使用 Node 24 执行测试、构建、Pages 部署。首次部署需将 Pages source 设为 GitHub Actions。
+`npm test` compiles the model and runs the Node test runner. The [Pages workflow](.github/workflows/deploy.yml) tests, type-checks, builds, and deploys `main` using Node 24. For a fork, select **GitHub Actions** as the Pages source.
 
-## Research series
+## Reading and citation
 
-[Transformer Architecture Lab](https://richardchen99.github.io/transformer-architecture-lab/) ·
-[Position Encoding Lab](https://richardchen99.github.io/position-encoding-lab/) ·
-[LLM Inference Lab](https://richardchen99.github.io/llm-inference-lab/) ·
-[Tokenizer Playground](https://richardchen99.github.io/tokenizer-playground/)
+- Schulman et al. [*Proximal Policy Optimization Algorithms*](https://arxiv.org/abs/1707.06347), 2017 — PPO and the clipped surrogate.
+- Ouyang et al. [*Training language models to follow instructions with human feedback*](https://arxiv.org/abs/2203.02155), 2022 — instruction-following and RLHF.
+- Shao et al. [*DeepSeekMath*](https://arxiv.org/abs/2402.03300), 2024 — GRPO in language-model training.
+- Rafailov et al. [*Direct Preference Optimization*](https://arxiv.org/abs/2305.18290), 2023 — a complementary preference-optimization approach.
+- [Project research note](https://richardchen99.github.io/blog/llm-rl-lab-note/) — the experiment explained in Chinese.
 
-## Sources
+For teaching or writing, link to this repository and record the commit used. [CITATION.cff](CITATION.cff) provides machine-readable software attribution.
 
-- [Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155)
-- [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347)
-- [DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models](https://arxiv.org/abs/2402.03300)
-- [Direct Preference Optimization: Your Language Model is Secretly a Reward Model](https://arxiv.org/abs/2305.18290)
+## Explore the series
+
+| Lab | Central question |
+| --- | --- |
+| [Tokenizer Playground](https://github.com/richardchen99/tokenizer-playground) | How does a corpus become a reusable vocabulary? |
+| [Transformer Architecture Lab](https://github.com/richardchen99/transformer-architecture-lab) | How does attention turn token representations into context? |
+| [Position Encoding Lab](https://github.com/richardchen99/position-encoding-lab) | How does position change attention geometry? |
+| [LLM Inference Lab](https://github.com/richardchen99/llm-inference-lab) | When can past computation be reused? |
+| **LLM RL Lab** | How does reward change a response distribution? |
+
+Found it useful? A star helps others discover the series. Contributions with explicit reward definitions and verifiable update rules are welcome.
