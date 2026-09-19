@@ -1,65 +1,65 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1170" viewBox="0 0 1600 1170" role="img" aria-labelledby="title desc">
-<title id="title">From reward to a changed policy</title><desc id="desc">A finite, inspectable policy: four complete responses, one sampled group, six updates.</desc>
+<title id="title">奖励如何推动策略更新</title><desc id="desc">四个完整候选回答，一组固定采样，六次可检查的策略更新。</desc>
 <defs>
 <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FCFAF5"/><stop offset="1" stop-color="#F2F7FA"/></linearGradient>
 <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 Z" fill="#586B77"/></marker>
-<style>text{font-family:"Avenir Next","Trebuchet MS",sans-serif;fill:#22313D}.display{font-family:Charter,Georgia,serif;font-weight:700}.small{letter-spacing:2px;font-weight:600}</style>
+<style>text{font-family:"PingFang SC","Noto Sans CJK SC","Avenir Next",sans-serif;fill:#22313D}.display{font-family:"Songti SC","Noto Serif CJK SC",Charter,serif;font-weight:700}.small{letter-spacing:2px;font-weight:600}</style>
 </defs>
 <rect width="1600" height="1170" rx="24" fill="url(#paper)"/>
-<text x="64" y="58" font-size="19" style="fill:#AA8244" class="small">MECHANISM ATLAS  /  05</text>
-<text x="64" y="121" font-size="45" style="fill:#22313D" class="display">From reward to a changed policy</text>
-<text x="64" y="165" font-size="23" style="fill:#586B77" class="">A finite, inspectable policy: four complete responses, one sampled group, six updates.</text>
+<text x="64" y="58" font-size="19" style="fill:#AA8244" class="small">机制图谱  /  05</text>
+<text x="64" y="121" font-size="45" style="fill:#22313D" class="display">奖励如何推动策略更新</text>
+<text x="64" y="165" font-size="23" style="fill:#586B77" class="">四个完整候选回答，一组固定采样，六次可检查的策略更新。</text>
 <rect x="64" y="220" width="324" height="157" rx="18" fill="#F5F0E5" stroke="#CBD6DB" stroke-width="1.5"/>
-<text x="88" y="263" font-size="27" style="fill:#22313D" class="" font-weight="600">Old policy</text>
-<text x="88" y="301" font-size="23" style="fill:#586B77" class="">Sampled once at the start</text>
-<text x="88" y="335" font-size="23" style="fill:#586B77" class="">Held fixed for ratios</text>
+<text x="88" y="263" font-size="27" style="fill:#22313D" class="" font-weight="600">旧策略</text>
+<text x="88" y="301" font-size="23" style="fill:#586B77" class="">开始时采样一组回答</text>
+<text x="88" y="335" font-size="23" style="fill:#586B77" class="">概率比分母保持固定</text>
 <rect x="446" y="220" width="300" height="157" rx="18" fill="#FFFFFF" stroke="#CBD6DB" stroke-width="1.5"/>
-<text x="470" y="263" font-size="26" style="fill:#22313D" class="" font-weight="600">Rollout group</text>
-<text x="470" y="301" font-size="23" style="fill:#586B77" class="">Seeded random draws</text>
-<text x="470" y="335" font-size="23" style="fill:#586B77" class="">Repeats are allowed</text>
+<text x="470" y="263" font-size="26" style="fill:#22313D" class="" font-weight="600">采样组</text>
+<text x="470" y="301" font-size="23" style="fill:#586B77" class="">由随机种子控制采样</text>
+<text x="470" y="335" font-size="23" style="fill:#586B77" class="">允许重复回答</text>
 <rect x="804" y="220" width="300" height="157" rx="18" fill="#FFFFFF" stroke="#CBD6DB" stroke-width="1.5"/>
-<text x="828" y="263" font-size="26" style="fill:#22313D" class="" font-weight="600">Reward table</text>
-<text x="828" y="301" font-size="23" style="fill:#586B77" class="">Math · JSON · preference</text>
-<text x="828" y="335" font-size="23" style="fill:#586B77" class="">Fixed, public scores</text>
+<text x="828" y="263" font-size="26" style="fill:#22313D" class="" font-weight="600">奖励表</text>
+<text x="828" y="301" font-size="23" style="fill:#586B77" class="">数学 · JSON · 偏好</text>
+<text x="828" y="335" font-size="23" style="fill:#586B77" class="">固定、公开的评分</text>
 <rect x="1162" y="220" width="374" height="157" rx="18" fill="#EDF4F8" stroke="#CBD6DB" stroke-width="1.5"/>
-<text x="1186" y="263" font-size="27" style="fill:#22313D" class="" font-weight="600">Advantages</text>
-<text x="1186" y="301" font-size="23" style="fill:#586B77" class="">PPO: old-policy baseline</text>
-<text x="1186" y="335" font-size="23" style="fill:#586B77" class="">GRPO: group mean / std</text>
+<text x="1186" y="263" font-size="27" style="fill:#22313D" class="" font-weight="600">优势估计</text>
+<text x="1186" y="301" font-size="23" style="fill:#586B77" class="">PPO：旧策略价值基线</text>
+<text x="1186" y="335" font-size="23" style="fill:#586B77" class="">GRPO：组内均值与标准差</text>
 <path d="M 388 300 L 440 300" fill="none" stroke="#586B77" stroke-width="2.3" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <path d="M 746 300 L 798 300" fill="none" stroke="#586B77" stroke-width="2.3" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <path d="M 1104 300 L 1156 300" fill="none" stroke="#586B77" stroke-width="2.3" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <path d="M 1349 377 L 1349 439 L 904 439 L 904 491" fill="none" stroke="#586B77" stroke-width="2.3" stroke-linejoin="round" marker-end="url(#arrow)"/>
-<text x="64" y="447" font-size="19" style="fill:#4E7E9D" class="small">FIXED ROLLOUT / SIX UPDATES</text>
+<text x="64" y="447" font-size="19" style="fill:#4E7E9D" class="small">固定采样组 / 六次策略更新</text>
 <rect x="64" y="500" width="376" height="144" rx="18" fill="#EDF4F8" stroke="#CBD6DB" stroke-width="1.5"/>
-<text x="88" y="543" font-size="27" style="fill:#22313D" class="" font-weight="600">Current policy</text>
-<text x="88" y="581" font-size="23" style="fill:#586B77" class="">Softmax over four logits</text>
-<text x="88" y="615" font-size="23" style="fill:#586B77" class="">Changes at each update</text>
+<text x="88" y="543" font-size="27" style="fill:#22313D" class="" font-weight="600">当前策略</text>
+<text x="88" y="581" font-size="23" style="fill:#586B77" class="">四个 logits 经 softmax 归一化</text>
+<text x="88" y="615" font-size="23" style="fill:#586B77" class="">随每次更新而变化</text>
 <rect x="544" y="500" width="512" height="144" rx="18" fill="#FFFFFF" stroke="#CBD6DB" stroke-width="1.5"/>
-<text x="568" y="543" font-size="27" style="fill:#22313D" class="" font-weight="600">Clipped surrogate</text>
-<text x="568" y="581" font-size="23" style="fill:#586B77" class="">Current / old probability ratios</text>
-<text x="568" y="615" font-size="23" style="fill:#586B77" class="">Advantage-aware clipping</text>
+<text x="568" y="543" font-size="27" style="fill:#22313D" class="" font-weight="600">裁剪代理目标</text>
+<text x="568" y="581" font-size="23" style="fill:#586B77" class="">当前策略与旧策略的概率比</text>
+<text x="568" y="615" font-size="23" style="fill:#586B77" class="">根据优势正负确定裁剪方向</text>
 <rect x="1162" y="500" width="374" height="144" rx="18" fill="#F5F0E5" stroke="#CBD6DB" stroke-width="1.5"/>
-<text x="1186" y="543" font-size="26" style="fill:#22313D" class="" font-weight="600">Reference policy</text>
-<text x="1186" y="581" font-size="23" style="fill:#586B77" class="">Fixed anchor for KL</text>
-<text x="1186" y="615" font-size="23" style="fill:#586B77" class="">Separate from old policy</text>
+<text x="1186" y="543" font-size="26" style="fill:#22313D" class="" font-weight="600">参考策略</text>
+<text x="1186" y="581" font-size="23" style="fill:#586B77" class="">用于计算 KL 的固定参照</text>
+<text x="1186" y="615" font-size="23" style="fill:#586B77" class="">与旧策略承担不同角色</text>
 <path d="M 440 571 L 538 571" fill="none" stroke="#586B77" stroke-width="2.3" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <path d="M 224 377 L 224 405 L 500 405 L 500 520 L 538 520" fill="none" stroke="#586B77" stroke-width="2.3" stroke-linejoin="round" marker-end="url(#arrow)" stroke-dasharray="7 6"/>
 <path d="M 1349 644 L 1349 764 L 1062 764" fill="none" stroke="#586B77" stroke-width="2.3" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <path d="M 800 644 L 800 694" fill="none" stroke="#586B77" stroke-width="2.3" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <rect x="544" y="709" width="512" height="117" rx="18" fill="#EDF5F0" stroke="#CBD6DB" stroke-width="1.5"/>
-<text x="568" y="752" font-size="27" style="fill:#22313D" class="" font-weight="600">Surrogate − KL penalty</text>
-<text x="568" y="790" font-size="23" style="fill:#586B77" class="">Analytic gradient with respect to logits</text>
+<text x="568" y="752" font-size="27" style="fill:#22313D" class="" font-weight="600">代理目标 − KL 惩罚</text>
+<text x="568" y="790" font-size="23" style="fill:#586B77" class="">计算目标函数对 logits 的解析梯度</text>
 <path d="M 440 612 L 484 612 L 484 764 L 538 764" fill="none" stroke="#586B77" stroke-width="2.3" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <path d="M 800 826 L 800 868" fill="none" stroke="#586B77" stroke-width="2.3" stroke-linejoin="round" marker-end="url(#arrow)"/>
 <rect x="544" y="878" width="512" height="113" rx="18" fill="#FFFFFF" stroke="#CBD6DB" stroke-width="1.5"/>
-<text x="568" y="921" font-size="27" style="fill:#22313D" class="" font-weight="600">Update → evaluate</text>
-<text x="568" y="959" font-size="23" style="fill:#586B77" class="">E1–E6: probabilities, expected reward, KL</text>
+<text x="568" y="921" font-size="27" style="fill:#22313D" class="" font-weight="600">更新 → 评估</text>
+<text x="568" y="959" font-size="23" style="fill:#586B77" class="">E1–E6：回答概率、期望奖励、KL</text>
 <path d="M 544 936 L 252 936 L 252 650" fill="none" stroke="#586B77" stroke-width="2.3" stroke-linejoin="round" marker-end="url(#arrow)"/>
-<text x="64" y="870" font-size="22" style="fill:#4E7E9D" class="">6 gradient steps</text>
-<text x="1123" y="897" font-size="22" style="fill:#586B77" class="">Evaluation covers</text>
-<text x="1123" y="931" font-size="22" style="fill:#586B77" class="">all four candidates.</text>
-<text x="1123" y="965" font-size="22" style="fill:#586B77" class="">No held-out benchmark.</text>
+<text x="64" y="870" font-size="22" style="fill:#4E7E9D" class="">六次梯度更新</text>
+<text x="1123" y="897" font-size="22" style="fill:#586B77" class="">评估覆盖全部</text>
+<text x="1123" y="931" font-size="22" style="fill:#586B77" class="">四个候选回答，</text>
+<text x="1123" y="965" font-size="22" style="fill:#586B77" class="">不代表独立测试集结果。</text>
 <path d="M 64 1098 L 1536 1098" stroke="#CBD6DB" stroke-width="1.5" fill="none"/>
-<text x="64" y="1133" font-size="18" style="fill:#586B77" class="">No critic training, token-level credit assignment, or LLM inference is simulated.</text>
-<text x="1536" y="1133" font-size="18" style="fill:#586B77" class="" text-anchor="end">Richard Chen  ·  Interactive AI Research Labs</text>
+<text x="64" y="1133" font-size="18" style="fill:#586B77" class="">实验不包含价值网络训练、词元级信用分配或实际 LLM 推理。</text>
+<text x="1536" y="1133" font-size="18" style="fill:#586B77" class="" text-anchor="end">Richard Chen  ·  AI 交互实验室</text>
 </svg>
